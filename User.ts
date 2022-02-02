@@ -5,16 +5,15 @@ interface Job {
 
 class User {
     private static money  = 10000;
-    private name : string;
-    private age : number;
-    private job? : Job;
-    private constructor (name : string, age : number, job?:Job) {
-        this.name = name;
-        this.age = age;
-        this.job = job;
-    }
+    private constructor (private internalName : string, private age : number, private job?:Job) { }
     static create(name : string, age : number, job?:Job) {
         return new User(name, age, job)
+    }
+    get description() : string {
+        return `Hello my name is ${this.internalName}, i am ${this.age} years old`
+    }
+    set name(name : string) {
+        this.name = name
     }
     changeAge(age : number){
         this.age = age;
