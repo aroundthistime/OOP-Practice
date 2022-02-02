@@ -1,25 +1,25 @@
-class StackNode {
-    prev? : StackNode | undefined
-    constructor(readonly value : number){
+class StackNode <T> {
+    prev? : StackNode<T> | undefined
+    constructor(readonly value : T){
     }
 }
 
-interface Stack {
+interface Stack <T> {
     size : number;
-    push(value : number) : void;
-    pop() : number | string;
+    push(value : T) : void;
+    pop() : T | string;
     print() : void;
 }
 
-class StackImplementation implements Stack {
-    private top : StackNode | null = null;
+class StackImplementation <T> implements Stack<T> {
+    private top : StackNode<T> | null = null;
     private _size : number = 0;
     constructor (){}
     get size() {
         return this._size;
     }
-    push(value : number){
-        const newNode : StackNode = new StackNode(value);
+    push(value : T){
+        const newNode : StackNode<T> = new StackNode(value);
         if (this.top){
             newNode.prev = this.top
             this.top = newNode
@@ -28,7 +28,7 @@ class StackImplementation implements Stack {
         }
         this._size++;
     }
-    pop() : number | never{
+    pop() : T | never{
         if (this.top){
             const popValue = this.top.value;
             if (this.top.prev){
@@ -43,9 +43,9 @@ class StackImplementation implements Stack {
         }
     }
     print(){
-        const values : number[] = [];
+        const values : T[] = [];
         if (this.top){
-            let node : StackNode | undefined = this.top;
+            let node : StackNode<T> | undefined = this.top;
             while (node){
                 values.push(node.value);
                 node = node.prev;
@@ -57,16 +57,32 @@ class StackImplementation implements Stack {
     }
 }
 
-const a : Stack = new StackImplementation();
-a.push(1);
-a.print();
-a.push(2);
-a.print();
-a.push(3);
-a.print();
-a.pop();
-a.print();
-a.pop()
-a.print();
-a.pop();
-a.print();
+const numStack : Stack<number> = new StackImplementation();
+numStack.push(1);
+numStack.print();
+numStack.push(2);
+numStack.print();
+numStack.push(3);
+numStack.print();
+numStack.pop();
+numStack.print();
+numStack.pop()
+numStack.print();
+numStack.pop();
+numStack.print();
+
+const strStack : Stack<string> = new StackImplementation();
+strStack.push("하나");
+strStack.print();
+strStack.push("둘");
+strStack.print();
+strStack.push("셋");
+strStack.push("!!");
+strStack.print();
+strStack.pop();
+strStack.print();
+strStack.pop()
+strStack.print();
+strStack.pop();
+strStack.pop();
+strStack.print();
